@@ -37,15 +37,6 @@ axios.get('https://lambda-times-api.herokuapp.com/articles')
     .catch(err => console.log(err))
 
 function createCard(articleObj){
-    // <div class="card">
-    //     <div class="headline">{Headline of article}</div>
-    //     <div class="author">
-    //         <div class="img-container">
-    //         <img src={url of authors image} />
-    //         </div>
-    //         <span>By {author's name}</span>
-    //     </div>
-    // </div>
     // Create card html elements from article object
     const card = document.createElement('div');
     card.classList.add('card');
@@ -60,7 +51,7 @@ function createCard(articleObj){
     image.src = articleObj.authorPhoto;
     const authorNameSpan = document.createElement('span');
     authorNameSpan.textContent = `By ${articleObj.authorName}`;
-    // Assemble card component
+    // Assemble card components
     imgContainer.appendChild(image);
     authorDiv.appendChild(imgContainer);
     authorDiv.appendChild(authorNameSpan);
