@@ -20,3 +20,56 @@
 // Add a listener for click events so that when a user clicks on a card, the headline of the article is logged to the console.
 //
 // Use your function to create a card for each of the articles, and append each card to the DOM.
+axios.get('https://lambda-times-api.herokuapp.com/articles')
+    .then(({data}) => {
+        const entryPoint = document.querySelector('.cards-container');
+        for ( const topic in data.articles) {
+            const articles = data.articles[topic]
+            //console.log(articles);
+            articles.forEach(article => {
+               // console.log(article);
+                const newCard = createCard(article);
+                entryPoint.appendChild(newCard);
+            })
+
+        }
+    })
+    .catch(err => console.log(err))
+
+function createCard(articleObj){
+    // <div class="card">
+    //     <div class="headline">{Headline of article}</div>
+    //     <div class="author">
+    //         <div class="img-container">
+    //         <img src={url of authors image} />
+    //         </div>
+    //         <span>By {author's name}</span>
+    //     </div>
+    // </div>
+    // Create card html elements from article object
+    const card = document.createElement('div');
+    card.classList.add('card');
+    const headline = document.createElement('div');
+    headline.classList.add('headline');
+    headline.textContent = articleObj.headline;
+    const authorDiv = document.createElement('div');
+    authorDiv.classList.add('author');
+    const imgContainer = document.createElement('div');
+    imgContainer.classList.add('img-container');
+    const image = document.createElement('img');
+    image.src = articleObj.authorPhoto;
+    const authorNameSpan = document.createElement('span');
+    authorNameSpan.textContent = `By ${articleObj.authorName}`;
+    // Assemble card component
+    imgContainer.appendChild(image);
+    authorDiv.appendChild(imgContainer);
+    authorDiv.appendChild(authorNameSpan);
+    card.appendChild(headline);
+    card.appendChild(authorDiv);
+    // Add event listener to card to console.log headline when card is clicked
+    card.addEventListener('click', (e) => {
+        console.log(e.currentTarget.childNodes[0].textContent); 
+    })
+    //console.log(card);
+    return card;
+}

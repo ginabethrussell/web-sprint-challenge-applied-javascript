@@ -28,7 +28,7 @@ function Header() {
     headerDiv.appendChild(h1Title);
     headerDiv.appendChild(tempSpan);
     // Return header component
-    console.log(headerDiv);
+    // console.log(headerDiv);
     return headerDiv;
 }
 
