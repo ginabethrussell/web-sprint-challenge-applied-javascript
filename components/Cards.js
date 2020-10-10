@@ -38,6 +38,7 @@ axios.get('https://lambda-times-api.herokuapp.com/articles')
         }
     })
     .catch(err => {
+        // Add an error display div to the card container
         const entryPoint = document.querySelector('.cards-container');
         const errMess = `Check Back Later:  ${err}`;
         messContainer = document.createElement('div');
