@@ -22,13 +22,16 @@
 // Use your function to create a card for each of the articles, and append each card to the DOM.
 axios.get('https://lambda-times-api.herokuapp.com/articles')
     .then(({data}) => {
+        console.log(data);
         const entryPoint = document.querySelector('.cards-container');
         for ( const topic in data.articles) {
+            topicName = topic;
+            console.log(topicName);
             const articles = data.articles[topic]
             //console.log(articles);
-            articles.forEach(article => {
+            articles.forEach((article) =>{
                // console.log(article);
-                const newCard = createCard(article);
+                const newCard = createCard(article, topicName);
                 entryPoint.appendChild(newCard);
             })
 
@@ -43,10 +46,11 @@ axios.get('https://lambda-times-api.herokuapp.com/articles')
         entryPoint.appendChild(messContainer);
     });
 
-function createCard(articleObj){
+function createCard(articleObj, topic){
     // Create card html elements from article object
     const card = document.createElement('div');
     card.classList.add('card');
+    card.classList.add(topic)
     const headline = document.createElement('div');
     headline.classList.add('headline');
     headline.textContent = articleObj.headline;

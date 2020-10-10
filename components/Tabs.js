@@ -12,14 +12,55 @@
 axios.get('https://lambda-times-api.herokuapp.com/topics')
     .then(({data}) => {
         // console.log(data);
+        const allTab = document.createElement('div');
+        allTab.classList.add('tab');
+        allTab.id = 'all';
+        allTab.textContent = 'All';
+        allTab.addEventListener('click', (e) => {
+            const articles = document.querySelectorAll('.card');
+            articles.forEach(article => {
+                article.classList.remove('hide');
+            });
+        })
+        const topicsDiv = document.querySelector('.topics');
+        topicsDiv.append(allTab);
+
         data.topics.forEach(topic => {
             const topicTab = document.createElement('div');
             topicTab.classList.add('tab');
             topicTab.textContent = topic;
             const topicsDiv = document.querySelector('.topics');
+            
+            // add an event listener to filter articles
+            topicTab.addEventListener('click', (e) => {
+                console.log(e.currentTarget.textContent);
+                let topic = e.currentTarget.textContent;
+                console.log(topic);
+                if (topic == 'node.js'){
+                    topic = 'node';
+                }
+                //grab all article cards
+                articles = document.querySelectorAll('.card');
+                articles.forEach(article => {
+                    article.classList.remove('hide');
+                });
+                
+                articles.forEach(article => {
+                    if (!article.classList.contains(topic)){
+                        article.classList.add('hide');
+                    }
+                });
+
+            })
             topicsDiv.appendChild(topicTab);
+
+        
             // console.log(topicTab);
+
         });
+
+        
 
     })
     .catch(err => console.log(err))
+
