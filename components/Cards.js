@@ -34,7 +34,14 @@ axios.get('https://lambda-times-api.herokuapp.com/articles')
 
         }
     })
-    .catch(err => console.log(err))
+    .catch(err => {
+        const entryPoint = document.querySelector('.cards-container');
+        const errMess = `Check Back Later:  ${err}`;
+        messContainer = document.createElement('div');
+        messContainer.classList.add('card');
+        messContainer.textContent = errMess;
+        entryPoint.appendChild(messContainer);
+    });
 
 function createCard(articleObj){
     // Create card html elements from article object
